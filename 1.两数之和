@@ -1,0 +1,33 @@
+class Solution:
+    def twoSum(self, numbers, target):
+        tmp = []
+        for i in numbers:
+            tmp.append(i)
+        numbers = sorted(numbers)
+        a = 0
+        b = len(numbers) - 1
+        while True:
+            if numbers[a] + numbers[b] == target:
+                break
+            elif numbers[a] + numbers[b] < target:
+                a += 1
+            elif numbers[a] + numbers[b] > target:
+                b -= 1
+        reta = numbers[a]
+        retb = numbers[b]
+        a = -1
+        b = -1
+        for i in range(0, len(tmp)):
+            if tmp[i] == reta and a == -1:
+                a = i
+            elif tmp[i] == retb and b == -1:
+                b = i
+        if a > b:
+            a = a ^ b
+            b = a ^ b
+            a = a ^ b
+        return [a, b]
+nums=[-1,-2,-3,-4,-5]
+target=-8
+so=Solution()
+print(so.twoSum(nums,target))
