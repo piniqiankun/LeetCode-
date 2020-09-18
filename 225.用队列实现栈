@@ -1,0 +1,62 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+//力扣225
+class MyStack {
+
+    private Queue<Integer> queue;
+
+    /** Initialize your data structure here. */
+    public MyStack() {
+        queue = new LinkedList<>();
+    }
+
+    /** Push element x onto stack. */
+    public void push(int x) {      //深入理解
+//        offer，add区别：
+//一些队列有大小限制，因此如果想在一个满的队列中加入一个新项，多出的项就会被拒绝。
+//这时新的 offer 方法就可以起作用了。它不是对调用 add() 方法抛出一个 unchecked 异常，而只是得到由 offer() 返回的 false。
+        queue.offer(x);
+        for (int i = queue.size() - 1; i > 0; i--) {
+            queue.offer(queue.poll()); //???: poll()方法:从队首获取元素。注意，获取后该元素就从队列中被移除了!出队操作；即：获得队首并删除！
+        }
+    }
+
+    /** Removes the element on top of the stack and returns that element. */
+    public int pop() {
+        return queue.poll();
+    }
+
+    /** Get the top element. */
+    public int top() {
+        return queue.peek();
+    }
+
+    /** Returns whether the stack is empty. */
+    public boolean empty() {
+        return queue.isEmpty();
+    }
+
+    public static void main(String[] args) {
+         MyStack ms = new MyStack();
+         int x=2;
+         ms.push(x);
+         ms.push(3);
+         int param_2 = ms.pop();
+         int param_3 = ms.top();
+         int p4=ms.pop();
+         boolean param_4 = ms.empty();
+        System.out.println(param_2);
+        System.out.println(param_3);
+        System.out.println(param_4);
+    }
+}
+
+/**
+ * Your MyStack object will be instantiated(被实例化) and called as such:
+ * MyStack obj = new MyStack();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.top();
+ * boolean param_4 = obj.empty();
+ */
